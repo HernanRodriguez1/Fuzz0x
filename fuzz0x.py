@@ -49,7 +49,9 @@ print contenido
 
 
 Carpeta = raw_input('Ingrese PATH si lo requiere: ')
+#No es obligatorio añadir una carpeta
 diccionario = raw_input("Ingrese la Diccionario: ")
+#Añada la ruta de su archivo
 
 try:
 	archivo = open(diccionario,"r")
