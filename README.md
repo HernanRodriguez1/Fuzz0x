@@ -4,15 +4,14 @@
 <br>
 Es una herramienta diseñada en Python para encontrar directorios y archivos de un sitio web.
 
-<b>Requerimientos:<b>
+<b>Requerimientos:</b>
 <br>
-<span>
-requests
-urllib2
-cookielib
-sys
-fake_useragent
-UserAgent  
-</span>
+<span>requests</span>
+<span>urllib2</span>
+<span>cookielib</span>
+<span>sys</span>
+<span>fake_useragent</span>
+<span>UserAgent</span>  
+
   
 
