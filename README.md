@@ -8,10 +8,13 @@ Es una herramienta en desarollo sirve para encontrar directorios y archivos de u
 
 <p>• requests</p>
 <p>• urllib2</p>
+<p>• import shodan</p> 
 <p>• cookielib</p>
-<p>• sys</p>
 <p>• fake_useragent</p>
 <p>• UserAgent</p> 
+<p>• import time</p> 
+<p>• sys</p>
+
 
   
 
