@@ -87,7 +87,7 @@ print '\n'+"Recopilación de información con shodan"+'\n'
 try:
     Key = 'WmoZbOoF5wjX2KDPtb442MLAR4FWCVlm' 
     api = shodan.Shodan(Key)
-    target = raw_input("Ingrese el nombre de dominio")
+    target = raw_input("Ingrese el nombre de dominio: ")
 
     dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
