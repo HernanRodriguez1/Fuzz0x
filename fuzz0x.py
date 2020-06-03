@@ -32,11 +32,11 @@ cabecera = {'User-Agent':str(UserAgent.firefox)}
 #--Si deseas puedes modificar el USER-AGENT simplemente reemplaza IE--
 
 def request(link):
-		try:
+        try:
 
-				return requests.get(link, headers=cabecera)
-		except requests.exceptions.ConnectionError:
-				pass
+                return requests.get(link, headers=cabecera)
+        except requests.exceptions.ConnectionError:
+                pass
 
 print('Tu User-Agent es: '+str(cabecera)+'\n')
 
@@ -55,39 +55,39 @@ contenido = pagina.info()
 print contenido
 
 Carpeta = ('') #Elabora el fuzzing en un directorio si lo requiere.
-diccionario = raw_input('Ingrese Diccionario: ')) #Ingrese la ruta de archivo
+diccionario = raw_input('Ingrese Diccionario: ') #Ingrese la ruta de archivo
 
 ##----------------------Brute Force - FUZZ-------------------------
 
 print '\n'+'=======================RESULTADO========================'+'\n'
 
 try:
-	archivo = open(diccionario,"r")
+    archivo = open(diccionario,"r")
 
 except:
-		print ("No se encuentro diccionario")+'\n'
-		sys.exit()
+        print ("No se encuentro diccionario")+'\n'
+        sys.exit()
 
 
 for linea in archivo:
-	cadenas = linea.strip()
-	directorio_encontrado = URL+Carpeta+'/'+cadenas
-	respuesta = request(directorio_encontrado)
+    cadenas = linea.strip()
+    directorio_encontrado = URL+Carpeta+'/'+cadenas
+    respuesta = request(directorio_encontrado)
 
-	if respuesta.status_code in [301,302,200,401,403,500]:
-		print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))		
-		
+    if respuesta.status_code in [301,302,200,401,403,500]:
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))      
+        
 
 pass
 print '\n'+"Recopilación de información con shodan"+'\n'
 
-#---------------------API SHODAN-----------------------	
+#---------------------API SHODAN----------------------- 
 
 
 try:
     Key = 'WmoZbOoF5wjX2KDPtb442MLAR4FWCVlm' 
     api = shodan.Shodan(Key)
-    target = ("li685-133.members.linode.com")
+    target = raw_input("Ingrese el nombre de dominio")
 
     dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
