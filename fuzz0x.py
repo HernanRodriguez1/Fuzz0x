@@ -54,7 +54,7 @@ except:
 contenido = pagina.info()
 print contenido
 
-Carpeta = ('') #Elabora el fuzzing en un directorio si lo requiere.
+Carpeta = raw_input('Ingrese PATH: ') #Elabora el fuzzing en un directorio si lo requiere.
 diccionario = raw_input('Ingrese Diccionario: ') #Ingrese la ruta de archivo
 
 ##----------------------Brute Force - FUZZ-------------------------
