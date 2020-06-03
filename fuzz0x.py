@@ -42,7 +42,7 @@ print('Tu User-Agent es: '+str(cabecera)+'\n')
 
 #------------------------Banner Grabbing---------------------------
 
-URL = ('https://www.open-sec.com/') #https://www.example.com o http://wwww.example.com
+URL = raw_input('Ingrese URL: ') #https://www.example.com o http://wwww.example.com
 banner = urllib2.Request(URL, headers=cabecera)
 
 try:
@@ -54,8 +54,8 @@ except:
 contenido = pagina.info()
 print contenido
 
-Carpeta = ('') #Elabora el fuzzing en un directorio del servidor
-diccionario = ('test.txt') #Ingrese la ruta de archivo
+Carpeta = ('') #Elabora el fuzzing en un directorio si lo requiere.
+diccionario = raw_input('Ingrese Diccionario: ')) #Ingrese la ruta de archivo
 
 ##----------------------Brute Force - FUZZ-------------------------
 
@@ -87,7 +87,7 @@ print '\n'+"Recopilación de información con shodan"+'\n'
 try:
     Key = 'WmoZbOoF5wjX2KDPtb442MLAR4FWCVlm' 
     api = shodan.Shodan(Key)
-    target = ("open-sec.com")
+    target = ("li685-133.members.linode.com")
 
     dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
