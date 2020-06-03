@@ -42,7 +42,7 @@ print('Tu User-Agent es: '+str(cabecera)+'\n')
 
 #------------------------Banner Grabbing---------------------------
 
-URL = raw_input('Ingrese URL: ')#https://www.example.com o http://wwww.example.com
+URL = ('https://www.open-sec.com/') #https://www.example.com o http://wwww.example.com
 banner = urllib2.Request(URL, headers=cabecera)
 
 try:
@@ -54,8 +54,8 @@ except:
 contenido = pagina.info()
 print contenido
 
-Carpeta = raw_input('Ingrese PATH si lo requiere: ') #Elabora el fuzzing en un directorio del servidor
-diccionario = raw_input("Ingrese la Diccionario: ") #Ingrese la ruta de archivo
+Carpeta = ('') #Elabora el fuzzing en un directorio del servidor
+diccionario = ('test.txt') #Ingrese la ruta de archivo
 
 ##----------------------Brute Force - FUZZ-------------------------
 
@@ -74,9 +74,8 @@ for linea in archivo:
 	directorio_encontrado = URL+Carpeta+'/'+cadenas
 	respuesta = request(directorio_encontrado)
 
-
-	if respuesta:
-		print("[+] Encontrado: "+directorio_encontrado)		
+	if respuesta.status_code in [301,302,200,401,403,500]:
+		print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))		
 		
 
 pass
@@ -84,14 +83,15 @@ print '\n'+"Recopilación de información con shodan"+'\n'
 
 #---------------------API SHODAN-----------------------	
 
-Key = 'WmoZbOoF5wjX2KDPtb442MLAR4FWCVlm' 
-api = shodan.Shodan(Key)
-
-target = raw_input('Ingrese nombre de dominio: ')
-
-dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
 try:
+    Key = 'WmoZbOoF5wjX2KDPtb442MLAR4FWCVlm' 
+    api = shodan.Shodan(Key)
+    target = ("open-sec.com")
+
+    dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
+
+
     resolved = requests.get(dnsResolve)
     hostIP = resolved.json()[target]
     
@@ -109,9 +109,14 @@ try:
 
     '''.format(host['ip_str'],host['city'],host['isp'],host['org'],host['ports'],host['os']))
 
+except:
+        print "Error de API"+'\n'
+try:        
+        
     for item in host['data']:
         print "Port: %s" % item['port']
         print "Banner: %s" % item['data']    
+
 
     for item in host['vulns']:
         CVE = item.replace('!','')
@@ -125,14 +130,11 @@ try:
                      
     file = open('shodan.txt','a+')
     for elemento in host['data']:
-		lista = elemento.keys()
-		for l in lista:
-		          	 file.write(str(elemento[l]))
+        lista = elemento.keys()
+        for l in lista:
+                     file.write(str(elemento[l]))
+
     file.close()
 
-    print "RECOPILACIÓN TERMINADA"+'\n'
-
 except:
-		print ("Error en SHODAN")+'\n'
-		
-        
+        print 'Error consulta Shodan'
