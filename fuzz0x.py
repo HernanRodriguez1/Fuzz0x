@@ -54,6 +54,56 @@ except:
 contenido = pagina.info()
 print contenido
 
+Carpeta = raw_input('Ingrese un directorio: ') #Elabora el fuzzing en un directorio si lo requiere.
+
+print '\n'+'EJEMPLO: /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt'+'\n'
+diccionario = raw_input('Ingrese la ruta de archivo: ') #Ingrese la ruta de archivo
+
+
+#Añadir extensión de archivo
+extension1 = ('txt')
+extension2 = ('php')
+extension3 = ('html')
+
+##----------------------Brute Force - FUZZ-------------------------
+
+print '\n'+'=======================RESULTADO========================'+'\n'
+
+try:
+    archivo = open(diccionario,"r")
+
+except:
+        print ("No se encuentro diccionario")+'\n'
+        sys.exit()
+
+for linea in archivo:
+    cadenas = linea.strip()
+    directorio_encontrado = URL+Carpeta+'/'+cadenas
+    respuesta = request(directorio_encontrado)
+    if respuesta.status_code in [301,302,200,401,403,500]:
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta)) 
+        pass
+    
+    directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension1
+    respuesta = request(directorio_encontrado)
+    if respuesta.status_code in [301,302,200,401,403,500]:
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta)) 
+        pass
+
+    directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension2
+    respuesta = request(directorio_encontrado)
+    if respuesta.status_code in [301,302,200,401,403,500]:
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))      
+        pass
+
+    directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension3
+    respuesta = request(directorio_encontrado)
+    if respuesta.status_code in [301,302,200,401,403,500]:
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))       
+        pass
+
+pass
+    
 print '\n'+"Recopilación de información con shodan"+'\n'
 
 #---------------------API SHODAN----------------------- 
@@ -113,54 +163,3 @@ try:
 
 except:
         'Error consulta SHODAN'
-
-
-Carpeta = raw_input('Ingrese un directorio: ') #Elabora el fuzzing en un directorio si lo requiere.
-
-print '\n'+'EJEMPLO: /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt'+'\n'
-diccionario = raw_input('Ingrese la ruta de archivo: ') #Ingrese la ruta de archivo
-
-
-#Añadir extensión de archivo
-extension1 = ('txt')
-extension2 = ('php')
-extension3 = ('html')
-
-##----------------------Brute Force - FUZZ-------------------------
-
-print '\n'+'=======================RESULTADO========================'+'\n'
-
-try:
-    archivo = open(diccionario,"r")
-
-except:
-        print ("No se encuentro diccionario")+'\n'
-        sys.exit()
-
-for linea in archivo:
-    cadenas = linea.strip()
-    directorio_encontrado = URL+Carpeta+'/'+cadenas
-    respuesta = request(directorio_encontrado)
-    if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta)) 
-        pass
-    
-    directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension1
-    respuesta = request(directorio_encontrado)
-    if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta)) 
-        pass
-
-    directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension2
-    respuesta = request(directorio_encontrado)
-    if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))      
-        pass
-
-    directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension3
-    respuesta = request(directorio_encontrado)
-    if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))       
-        pass
-
-pass
