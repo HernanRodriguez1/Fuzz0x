@@ -58,8 +58,8 @@ print contenido
 Carpeta = raw_input('Ingrese un directorio (opcional): ') #Elabora el fuzzing en un directorio si lo requiere.
 
 print '\n'+'EJEMPLO: /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt'+'\n'
-diccionario = raw_input('Ingrese la ruta de archivo: ') #Ingrese la ruta de archivo
 
+diccionario = raw_input('Ingrese la ruta de archivo: ')  #Ingrese la ruta de archivo
 
 #Añadir extensión de archivo
 extension1 = ('txt')
@@ -105,16 +105,22 @@ for linea in archivo:
 
 pass
     
-print '\n'+"Recopilación de información con shodan"+'\n'
+#---------------------API hackertarget---------------------- 
 
+print '\n'+"===================OBTENIENDO SUBDOMINIOS================"+'\n'
+
+target = raw_input("Ingrese el nombre de dominio: ")
+request = requests.get('https://api.hackertarget.com/hostsearch/?q='+target)
+response = request.text
+print(response)
+pass
 #---------------------API SHODAN----------------------- 
 
+print '\n'+"Recopilación de información con shodan"+'\n'
 
 try:
-    Key = 'TWiPEReew3gOwyD43kARnENO8MzndF50' 
+    Key = 'TWiPEReew3gOwyD43kARnENO8MzndF50' ##Añade API de SHODAN
     api = shodan.Shodan(Key)
-    target = raw_input("Ingrese el nombre de dominio: ")
-
     #Obteniendo la IP del servidor
     dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
@@ -124,7 +130,7 @@ try:
     
     #Obteniendo Banner Grabbing
     host = api.host(hostIP)
-    print '\n'+"===================IFORMACIÓN SHODAN================"
+    print '\n'+"===================INFORMACIÓN SHODAN================"
     print('''
 
 [!] Direccion IP: {}
