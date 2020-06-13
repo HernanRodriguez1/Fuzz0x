@@ -1,7 +1,9 @@
 # Fuzz0x
 
 <img src="https://github.com/HernanRodriguez1/Fuzz0x/blob/master/1.png" width="650"/>
-
+<b>
+<img src="https://github.com/HernanRodriguez1/Fuzz0x/blob/master/2.png" width="650"/>
+  
 Es una herramienta en desarollo actualmente sirve para encontrar directorios y archivos de un sitio web, tambien consta de analisis de Banner Grabbing y vulnerabilidades con SHODAN.
 <br>
 
