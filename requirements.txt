@@ -1,5 +1,4 @@
 requests
-urllib2
 shodan 
 cookielib
 fake_useragent
