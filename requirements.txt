@@ -1,7 +1,7 @@
 requests
-shodan 
-cookielib
+shodan
+cookiejar
 fake_useragent
-UserAgent 
-time 
+UserAgent
+time
 sys
