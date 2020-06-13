@@ -7,6 +7,7 @@ import sys
 import shodan
 from fake_useragent import UserAgent
 import time
+import socket
 
 mensaje = '\x1b[1;22m'+"Framework Fuzz0x".capitalize()
 print ('\n'+mensaje.center(100, "=")+'\n'+'''
@@ -54,7 +55,7 @@ except:
 contenido = pagina.info()
 print contenido
 
-Carpeta = raw_input('Ingrese un directorio: ') #Elabora el fuzzing en un directorio si lo requiere.
+Carpeta = raw_input('Ingrese un directorio (opcional): ') #Elabora el fuzzing en un directorio si lo requiere.
 
 print '\n'+'EJEMPLO: /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt'+'\n'
 diccionario = raw_input('Ingrese la ruta de archivo: ') #Ingrese la ruta de archivo
@@ -114,6 +115,7 @@ try:
     api = shodan.Shodan(Key)
     target = raw_input("Ingrese el nombre de dominio: ")
 
+    #Obteniendo la IP del servidor
     dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
 
