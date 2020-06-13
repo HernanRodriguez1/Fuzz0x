@@ -6,7 +6,7 @@
 Es una herramienta en desarollo actualmente sirve para encontrar directorios y archivos de un sitio web, tambien consta de analisis de Banner Grabbing y vulnerabilidades con SHODAN.
 <br>
 
-<b>• Modo de Uso:</b> 
+<b>Modo de Uso:</b> 
 <p>• Ingrese su API de SHODAN en el codigo fuente del archivo Fuzz0x.py</p>
 <p>• Ingrese la URL de su objetivo: http://www.ejemplo.com o https://www.ejemplo.com </p>
 <p>• Ingrese el nombre de la carpeta a realizar el FUZZ (Opcional)</p>
@@ -29,6 +29,8 @@ Es una herramienta en desarollo actualmente sirve para encontrar directorios y a
 <p>• import time</p> 
 <p>• sys</p>
 
+<br>
+<p>Agradecimientos Walter Cuestas y Mauricio Velazco :)</p>
 
   
 
