@@ -29,8 +29,6 @@ Es una herramienta en desarollo actualmente sirve para encontrar directorios y a
 <p>• import time</p> 
 <p>• sys</p>
 
-<br>
-<p>Agradecimientos Walter Cuestas y Mauricio Velazco :)</p>
 
   
 
