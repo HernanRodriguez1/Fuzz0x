@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from bs4 import BeautifulSoup
 import requests
 import urllib2,cookielib
 import sys
@@ -21,15 +22,11 @@ print ('\n'+mensaje.center(100, "=")+'\n'+'''
 .JMML.       `Mbod"YML.AMMmmmM AMMmmmM  `Ybmmd9'  .AM.   .MA.
 
 Fuzz0x - 2020
-This project was created by Hernan Rodriguez. 
+This project was created by Hernan Rodriguez.
 Copyright under the GPL license'''+'\n')
 
-#----------Obtener nuestra IP Publica---------
-ip = urllib2.urlopen('http://ident.me').read()
-print ('Tu IP Publica es: '+ip)
-
 UserAgent= UserAgent()
-cabecera = {'User-Agent':str(UserAgent.firefox)} 
+cabecera = {'User-Agent':str(UserAgent.firefox)}
 #--Si deseas puedes modificar el USER-AGENT simplemente reemplaza IE--
 
 def request(link):
@@ -43,7 +40,8 @@ print('Tu User-Agent es: '+str(cabecera)+'\n')
 
 #------------------------Banner Grabbing---------------------------
 
-URL = raw_input('Ingrese URL: ') #https://www.example.com o http://wwww.example.com
+print ('/nEjemplo: https://www.example.com o http://wwww.example.com')
+URL = raw_input('Ingrese URL: ')
 banner = urllib2.Request(URL, headers=cabecera)
 
 try:
@@ -54,6 +52,16 @@ except:
 
 contenido = pagina.info()
 print contenido
+
+r  = requests.get(URL)
+data = r.text
+print "\n-------------------------Web Crawling------------------------------"
+soup = BeautifulSoup(data, 'lxml')
+for link in soup.find_all('a'):
+    print(link.get('href'))
+
+
+
 
 Carpeta = raw_input('Ingrese un directorio (opcional): ') #Elabora el fuzzing en un directorio si lo requiere.
 
@@ -82,29 +90,29 @@ for linea in archivo:
     directorio_encontrado = URL+Carpeta+'/'+cadenas
     respuesta = request(directorio_encontrado)
     if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta)) 
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))
         pass
     
     directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension1
     respuesta = request(directorio_encontrado)
     if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta)) 
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))
         pass
 
     directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension2
     respuesta = request(directorio_encontrado)
     if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))      
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))
         pass
 
     directorio_encontrado = URL+Carpeta+'/'+cadenas+'.'+extension3
     respuesta = request(directorio_encontrado)
     if respuesta.status_code in [301,302,200,401,403,500]:
-        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))       
+        print("[+] Encontrado: "+directorio_encontrado+' '+str(respuesta))
         pass
 
 pass
-    
+
 #---------------------API hackertarget---------------------- 
 
 print '\n'+"===================OBTENIENDO SUBDOMINIOS================"+'\n'
@@ -119,15 +127,14 @@ pass
 print '\n'+"Recopilación de información con shodan"+'\n'
 
 try:
-    Key = 'TWiPEReew3gOwyD43kARnENO8MzndF50' ##Añade API de SHODAN
+    Key = 'BcF3osQdO171ouiv3Dx3yG8SM5HvphDN' ##Añade API de SHODAN
     api = shodan.Shodan(Key)
     #Obteniendo la IP del servidor
     dnsResolve = 'https://api.shodan.io/dns/resolve?hostnames=' + target + '&key=' + Key
 
-
     resolved = requests.get(dnsResolve)
     hostIP = resolved.json()[target]
-    
+
     #Obteniendo Banner Grabbing
     host = api.host(hostIP)
     print '\n'+"===================INFORMACIÓN SHODAN================"
@@ -138,17 +145,17 @@ try:
 [!] ISP: {}
 [!] Organización: {}
 [!] Puertos: {}
-[!] Sistema Operativo: {}   
+[!] Sistema Operativo: {}
 
     '''.format(host['ip_str'],host['city'],host['isp'],host['org'],host['ports'],host['os']))
 
 except:
         print "Error de API"+'\n'
-try:        
-        
+try:
+
     for item in host['data']:
         print "Port: %s" % item['port']
-        print "Banner: %s" % item['data']    
+        print "Banner: %s" % item['data']
 
 
     for item in host['vulns']:
@@ -159,13 +166,6 @@ try:
             if item.get('cve')[0] == CVE:
                 print item.get('description')+'\n'
                 time.sleep(1)
-                
-                     
-    file = open('shodan.txt','a+')
-    for elemento in host['data']:
-        lista = elemento.keys()
-        for l in lista:
-                     file.write(str(elemento[l]))
 
     file.close()
 
