@@ -40,7 +40,7 @@ print('Tu User-Agent es: '+str(cabecera)+'\n')
 
 #------------------------Banner Grabbing---------------------------
 
-print ('/nEjemplo: https://www.example.com o http://wwww.example.com')
+print ('Ejemplo: https://www.example.com o http://wwww.example.com'+'\n')
 URL = raw_input('Ingrese URL: ')
 banner = urllib2.Request(URL, headers=cabecera)
 
